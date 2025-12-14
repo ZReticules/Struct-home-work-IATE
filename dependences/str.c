@@ -20,11 +20,26 @@ void str_realloc(str *s, unsigned int new_cap){
 }
 
 void str_add_char(str *s, char smb){
-	if(s->len < s->cap){
+	if(s->len == s->cap){
 		str_realloc(s, s->cap + 16);
 		s->cap += 16;
 	}
 	s->c_str[s->len++] = smb;
+	s->c_str[s->len] = '\0';
+}
+
+void str_add_chars(str *s, char *chs, int len){
+	if(len == -1){
+		len = strlen(chs);
+	}
+	int new_len = s->len + len;
+	if(s->cap < new_len){
+		int addition = (((new_len - s->cap) / 16) + 1) * 16;
+		str_realloc(s, s->cap + addition);
+		s->cap += addition;
+	}
+	memmove(&s->c_str[s->len], chs, len);
+	s->len = new_len;
 	s->c_str[s->len] = '\0';
 }
 
@@ -36,7 +51,7 @@ void str_clear(str *s){
 void str_read(str *s){
 	str_clear(s);
 	for(char smb = getchar(); smb != '\n'; smb = getchar())
-		str_add_char(s, smb);
+		str_add(s, smb);
 }
 
 void str_print(str *s){

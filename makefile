@@ -12,7 +12,7 @@ BUILD_DIR := build
 PROJECT_DIR := $(abspath .)
 
 # Флаги компилятора
-CFLAGS := -Wall -Wextra -O2 -std=c23 -MMD -MP -I$(PROJECT_DIR)
+CFLAGS := -Wall -Wextra -O2 -std=gnu23 -MMD -MP -I$(PROJECT_DIR)
 
 # ---------------------------
 # Рекурсивный поиск всех .c файлов
